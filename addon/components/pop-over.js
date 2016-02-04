@@ -46,6 +46,8 @@ export default Ember.Component.extend({
 
   active: false,
 
+  shouldClosePopOver: false,
+
   supportsLiquidFire: integrates('liquid-fire'),
 
   classNames: ['pop-over'],
@@ -214,6 +216,12 @@ export default Ember.Component.extend({
     }
   },
 
+  manuallyClosePopOver: Ember.observer('shouldClosePopOver', function() {
+    if(get(this, 'shouldClosePopOver')) {
+      get(this, 'targets').setEach('active', false);
+    }
+  }),
+
   /**
     Before the menu is shown, setup click events
     to catch when the user clicks outside the
@@ -247,6 +255,7 @@ export default Ember.Component.extend({
   show() {
     if (this.isDestroyed) { return; }
     set(this, 'active', true);
+    set(this, 'shouldClosePopOver', false);
   },
 
   retile() {
