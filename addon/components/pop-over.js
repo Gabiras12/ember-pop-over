@@ -316,7 +316,7 @@ export default Ember.Component.extend({
         top: popOverRect.top + 'px',
         left: popOverRect.left + 'px',
         width: popOverRect.width + 'px',
-        height: popOverRect.height + 'px'
+        height: 'auto'
       });
       scheduleOnce('afterRender', this, 'positionPointer', $popover, pointerRect);
     }
@@ -324,12 +324,13 @@ export default Ember.Component.extend({
 
   positionPointer($compass, pointerRect) {
     let selector = '.pop-over-container > .pop-over-pointer';
+    let topValue = $compass.css('top') + $compass.css('height');
     let $pointer = get(this, 'supportsLiquidFire') ?
         $(`> .liquid-container > .liquid-child > ${selector}`, $compass) :
         $(selector, $compass);
 
     $pointer.css({
-      top: pointerRect.top + 'px',
+      top: topValue + 'px',
       left: pointerRect.left + 'px'
     });
   }
