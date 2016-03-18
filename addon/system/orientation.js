@@ -73,6 +73,49 @@ export default Ember.Object.extend({
     return this;
   },
 
+  andAttachTo: function (attachGuidelines, attachTo) {
+    var constraints = Ember.A();
+    var guideline;
+    var orientation = get(this, 'orientation');
+
+    for (var i = 0, len = attachGuidelines.length; i < len; i++) {
+      guideline = attachGuidelines[i];
+
+      constraints.push(
+        new Constraint({
+          orientation: orientation,
+          behavior:    'attach',
+          attachTo:    attachTo,
+          guideline:   guideline
+        })
+      );
+    }
+
+    if (!isArray(get(this, 'constraints'))) {
+      set(this, 'constraints', Ember.A());
+    }
+
+    this._constraints.pushObjects(constraints);
+    get(this, 'constraints').pushObjects(constraints);
+
+    return this;
+  },
+
+  andAttachToCenter: function(attachGuidelines) {
+    attachGuidelines = slice.call(arguments);
+    return this.andAttachTo(attachGuidelines, 'center');
+  },
+
+  andAttachToRight: function(attachGuidelines) {
+    attachGuidelines = slice.call(arguments);
+    return this.andAttachTo(attachGuidelines, 'right');
+  },
+
+  andAttachToLeft: function(attachGuidelines) {
+    attachGuidelines = slice.call(arguments);
+    return this.andAttachTo(attachGuidelines, 'left');
+  },
+
   where: function (condition) {
     this._constraints.forEach(function (constraint) {
       constraint.condition = condition;
