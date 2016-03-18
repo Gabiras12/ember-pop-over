@@ -216,7 +216,7 @@ export default Ember.Component.extend({
     }
   },
 
-  manuallyClosePopOver: Ember.observer('shouldClosePopOver', function() {
+  shouldCloseObserver: Ember.observer('shouldClosePopOver', function() {
     if(get(this, 'shouldClosePopOver')) {
       get(this, 'targets').setEach('active', false);
     }
