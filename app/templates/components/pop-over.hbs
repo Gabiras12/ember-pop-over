@@ -11,7 +11,8 @@
 {{#if active}}
   <div class="pop-over-compass {{if supportsLiquidFire "pop-over-hidden"}}">
     <div class="pop-over-container">
-      <span class="pop-over-pointer orient-{{orientation}}"></span>
+      <span class="pop-over-pointer pop-over-pointer-outter orient-{{orientation}}"></span>
+      <span class="pop-over-pointer pop-over-pointer-inner orient-{{orientation}}"></span>
       {{yield}}
     </div>
   </div>

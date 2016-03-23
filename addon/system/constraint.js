@@ -10,7 +10,7 @@ function orientAbove(target, popover, pointer) {
 }
 
 function orientBelow(target, popover, pointer) {
-  popover.setY(target.bottom + pointer.height);
+  popover.setY(target.bottom);
   pointer.setY(pointer.height * -1);
 }
 
@@ -64,31 +64,31 @@ function attachCenterToCenter(target, popover, pointer) {
 }
 
 function attachCenterToRight(target, popover, pointer) {
-  const offsetRight = Math.min(target.width / 2 - (pointer.width * 1.5), 5);
+  const offsetRight = Math.min(target.width / 2 - (pointer.width * 1.5), 9);
   popover.setX(target.left + target.width / 2 - popover.width + offsetRight + pointer.width/2);
   pointer.setX(popover.width - offsetRight - pointer.width);
 }
 
 function attachCenterToLeft(target, popover, pointer) {
-  const offsetLeft = Math.min(target.width / 2 - (pointer.width * 1.5), 5);
+  const offsetLeft = Math.min(target.width / 2 - (pointer.width * 1.5), 9);
   popover.setX(target.left + target.width / 2 - offsetLeft - pointer.width/2);
   pointer.setX(offsetLeft);
 }
 
 function attachRightToCenter(target, popover, pointer) {
-  popover.setX(target.left + target.width - popover.width / 2);
+  popover.setX(target.left + target.width - popover.width / 2 - 5);
   pointer.setX(popover.width / 2 - pointer.width / 2);
 }
 
 function attachRightToRight(target, popover, pointer) {
-  const offsetRight = Math.min(target.width / 2 - (pointer.width * 1.5), 5);
-  popover.setX(target.left + target.width - popover.width + offsetRight + pointer.width/2);
+  const offsetRight = Math.min(target.width / 2 - (pointer.width * 1.5), 9);
+  popover.setX(target.left + target.width - popover.width + offsetRight + pointer.width/2 - 5);
   pointer.setX(popover.width - offsetRight - pointer.width);
 }
 
 function attachRightToLeft(target, popover, pointer) {
-  const offsetLeft = Math.min(target.width / 2 - (pointer.width * 1.5), 5);
-  popover.setX(target.left + target.width - offsetLeft - pointer.width/2);
+  const offsetLeft = Math.min(target.width / 2 - (pointer.width * 1.5), 9);
+  popover.setX(target.left + target.width - offsetLeft - pointer.width/2 - 5);
   pointer.setX(offsetLeft);
 }
 
@@ -98,13 +98,13 @@ function attachLeftToCenter(target, popover, pointer) {
 }
 
 function attachLeftToRight(target, popover, pointer) {
-  const offsetRight = Math.min(target.width / 2 - (pointer.width * 1.5), 5);
+  const offsetRight = Math.min(target.width / 2 - (pointer.width * 1.5), 9);
   popover.setX(target.left - popover.width + offsetRight + pointer.width/2);
   pointer.setX(popover.width - offsetRight - pointer.width);
 }
 
 function attachLeftToLeft(target, popover, pointer) {
-  const offsetLeft = Math.min(target.width / 2 - (pointer.width * 1.5), 5);
+  const offsetLeft = Math.min(target.width / 2 - (pointer.width * 1.5), 9);
   popover.setX(target.left - offsetLeft - pointer.width/2);
   pointer.setX(offsetLeft);
 }
@@ -276,12 +276,12 @@ Constraint.prototype.solveFor = function (boundingRect, targetRect, popoverRect,
           case 'right-edge': attachCenterToRight(targetRect, popoverRect, pointerRect); break;
           case 'left-edge': attachCenterToLeft(targetRect, popoverRect, pointerRect); break;
         }
+        break;
       case 'right':
         switch (this.guideline) {
           case 'center': attachRightToCenter(targetRect, popoverRect, pointerRect); break;
           case 'right-edge': attachRightToRight(targetRect, popoverRect, pointerRect); break;
           case 'left-edge': attachRightToLeft(targetRect, popoverRect, pointerRect); break;
-            break;
         }
         break;
       case 'left':
@@ -289,7 +289,6 @@ Constraint.prototype.solveFor = function (boundingRect, targetRect, popoverRect,
           case 'center': attachLeftToCenter(targetRect, popoverRect, pointerRect); break;
           case 'right-edge': attachLeftToRight(targetRect, popoverRect, pointerRect); break;
           case 'left-edge': attachLeftToLeft(targetRect, popoverRect, pointerRect); break;
-            break;
         }
         break;
     }
